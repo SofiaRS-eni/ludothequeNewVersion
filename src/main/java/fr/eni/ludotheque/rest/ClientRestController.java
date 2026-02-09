@@ -2,6 +2,7 @@ package fr.eni.ludotheque.rest;
 
 import fr.eni.ludotheque.bll.ClientService;
 import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -69,6 +70,33 @@ public class ClientRestController {
         catch (DataNotFound dnt)
         {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client non trouvé");
+        }
+    }
+
+    //Modif client entier
+    @PutMapping("/{id}")
+    public ResponseEntity<Client> updateClient(@PathVariable Integer id,@Valid @RequestBody ClientDTO clientDTO)
+    {
+        try{
+            Client client = clientService.modifierClient(id, clientDTO);
+            return ResponseEntity.ok(client);
+        }catch (DataNotFound dnt)
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
+    //Modif que l'adresse client
+    @PatchMapping("/{id}")
+    public ResponseEntity<Client> updateAdresseClient(@PathVariable Integer id, @Valid @RequestBody AdresseDTO adresseDTO)
+    {
+        try{
+            Client clientAdresse = clientService.modifierAdresse(id, adresseDTO);
+            return ResponseEntity.ok(clientAdresse);
+        }catch (DataNotFound dnt)
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
