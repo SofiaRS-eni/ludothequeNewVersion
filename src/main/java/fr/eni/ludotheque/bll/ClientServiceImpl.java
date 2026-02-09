@@ -99,19 +99,14 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public List<Client> getAllClients()
 	{
-		return clients.stream().collect(Collectors.toList());
+		List<Client> client = clientRepository.findAll();
+		return client;
 	}
 
 	@Override
 	public void deleteClient(Integer id)
 	{
-		Optional<Client> foundClient = clients.stream()
-				.filter(client -> client.getNoClient().equals(id))
-				.findFirst();
-		if(foundClient.isEmpty())
-		{
-			throw new DataNotFound("Client",id);
-		}
-		clients.remove(foundClient.get());
+		Client client = clientRepository.findById(id).orElseThrow();
+		clientRepository.delete(client);
 	}
 }
