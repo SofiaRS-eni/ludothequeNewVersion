@@ -3,6 +3,13 @@ package fr.eni.ludotheque.bll;
 import java.util.List;
 import java.util.Optional;
 
+import fr.eni.ludotheque.bo.Adresse;
+import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.dto.ClientDTO;
+import fr.eni.ludotheque.dto.JeuDTO;
+import fr.eni.ludotheque.exceptions.EmailClientAlreadyExistException;
+import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ludotheque.bo.Jeu;
@@ -20,14 +27,27 @@ public class JeuServiceImpl implements JeuService{
 	
 	@NonNull
 	private ExemplaireRepository exemplaireRepository;
-	
+
+
 	@Override
-	public void ajouterJeu(Jeu jeu) {
+	public Jeu ajouterUnJeu(JeuDTO jeuDTO)
+	{
+		Jeu jeu = new Jeu();
+		BeanUtils.copyProperties(jeuDTO, jeu);
+		Jeu newJeu = null;
+		newJeu = jeuRepository.save(jeu);
+		return newJeu;
+	}
+
+	/*
+	@Override
+	public Jeu ajouterJeu(Jeu jeu) {
 		
 		jeuRepository.save(jeu);
-		
-		
-	}
+
+
+		return jeu;
+	}*/
 
 
 	@Override
@@ -54,6 +74,11 @@ public class JeuServiceImpl implements JeuService{
 		return jeux;
 	}
 
-	
+	@Override
+	public List<Jeu> getAllJeu()
+	{
+		List<Jeu> jeu = jeuRepository.findAll();
+		return jeu;
+	}
 
 }

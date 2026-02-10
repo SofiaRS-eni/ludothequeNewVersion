@@ -100,4 +100,17 @@ public class ClientRestController {
         }
     }
 
+    //Les clients dont le nom commence par la chaine fournie
+    @GetMapping("/client/{nom}")
+    public ResponseEntity<List<Client>> getClientsByNom(@PathVariable String nom)
+    {
+        List<Client> clients = clientService.trouverClientsParNom(nom);
+        if(clients.isEmpty())
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(clients);
+    }
+
+
 }
