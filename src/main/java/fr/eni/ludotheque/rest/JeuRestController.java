@@ -42,4 +42,7 @@ public class JeuRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createjeu);
     }
 
+    //Liste le catalogue du jeu
+
+
 }
