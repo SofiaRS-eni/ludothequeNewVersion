@@ -1,11 +1,13 @@
 spring:
+  config:
+    import: optional:file:env.properties
   application:
     name: ludotheque
 
   datasource:
     url: jdbc:sqlserver://localhost;databasename=LUDO_DB;encrypt=false
-    username: LUDO_USER
-    password: "user_456"
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     show-sql: true
     properties:

@@ -21,8 +21,6 @@ public class UtilisateurServiceTest {
     {
         //Arrange
         Utilisateur user1 = new Utilisateur("employe","employe","EMPLOYE");
-
         utilisateurRepository.save(user1);
-
     }
 }
